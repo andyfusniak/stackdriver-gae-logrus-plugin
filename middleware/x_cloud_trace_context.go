@@ -5,9 +5,9 @@ import (
 	"net/http"
 )
 
-type cxtcKeyType string
+type xctcKeyType string
 
-const xctcKey cxtcKeyType = "user"
+const xctcKey xctcKeyType = "xctc"
 
 // XCTC returns the XCloudTraceContent value from the context.
 func XCTC(ctx context.Context) string {
