@@ -1,4 +1,6 @@
 # CHANGELOG
+## v0.1.2
++ Fix panic occuring with `X-Cloud-Trace-Context` values with missing `;o=1` part.
 
 ## v0.1.1
 + Adds `app.yaml` file and fixes Makefile for gcloud app deploy.

@@ -61,7 +61,7 @@ func main() {
 	}
 
 	fmt.Printf("Stackdriver GAE Example HTTP Service version %s listening on port %s (projectID=%s)\n", version, port, projectID)
-	fmt.Println("If you are running, simulate a GAE request locally using")
+	fmt.Println("If you are running locally, simulate a GAE request using")
 	fmt.Println("curl -v -H 'X-Cloud-Trace-Context: 1ad1e4f50427b51eadc9b36064d40cc2/8196282844182683029;o=1' http://localhost:8080/")
 	fmt.Println()
 	fmt.Println("Use make deploy to run this example on Google App Engine")

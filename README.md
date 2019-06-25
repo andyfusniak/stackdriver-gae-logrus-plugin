@@ -31,7 +31,7 @@ In the Stack Driver Logging Cloud Console you can filter results by request.
 
 ![Filter results by request](./docs/screenshots/filter-show-requests-only.png)
 
-Opening up an individual request will show each log entry nested within. Each entry will have a color code icon showing its severity corrsponding to its nearest equivilent Logrus level.
+Opening an individual request will show each log entry nested within. Each entry will have a color coded icon showing its severity corrsponding to its nearest equivilent Logrus level.
 
 ![](./docs/screenshots/threaded-log-entries.png)
 
