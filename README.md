@@ -46,6 +46,14 @@ This will automatically set the filters to reveal all log entries associated to 
 ![](./docs/screenshots/log_entries_list.png)
 
 
+Clicking the discover icon expands the log entry to reveal the `jsonPayload` section. `jsonPayload.data` contains the field data set using the standard Logrus `WithFields` method.
+
+``` go
+contextLogger.WithFields(log.Fields{
+	"status": "busted",
+}).Error("These are not the drones you are looking for")
+```
+
 ![](./docs/screenshots/json_payload.png)
 
 
