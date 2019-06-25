@@ -1,4 +1,5 @@
 bin/
+.gcloudignore
 
 # Binaries for programs and plugins
 *.exe
