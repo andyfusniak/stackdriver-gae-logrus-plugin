@@ -102,9 +102,9 @@ func parseXCloudTraceContext(t string) (traceID, spanID string) {
 	// handle "TRACE_ID/SPAN_ID" missing the ";o=1" part.
 	last := strings.LastIndex(t, ";")
 	if last == -1 {
-		return t[0:31], t[33:]
+		return t[0:32], t[33:]
 	}
-	return t[0:31], t[33:last]
+	return t[0:32], t[33:last]
 }
 
 // Option lets you configure the Formatter.
