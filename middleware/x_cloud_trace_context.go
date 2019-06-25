@@ -11,6 +11,10 @@ const xctcKey xctcKeyType = "xctc"
 
 // XCTC returns the XCloudTraceContent value from the context.
 func XCTC(ctx context.Context) string {
+	if ctx == nil {
+		return ""
+	}
+
 	xctc, ok := ctx.Value(xctcKey).(string)
 	if !ok {
 		return ""
