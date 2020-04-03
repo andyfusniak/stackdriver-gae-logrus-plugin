@@ -2,9 +2,9 @@
 
 [Logrus is a structured logger for Go](https://github.com/sirupsen/logrus) compatible with the standard library logger.
 
-Stackdriver GAE Logrus Plugin is a lightweight plugin providing threaded message entries on Google App Engine (GAE) Standard Environment.
+Stackdriver GAE Logrus Plugin is a lightweight plugin providing threaded message entries on Google Cloud Run and Google App Engine (GAE) Standard Environment.
 
-GAE adds a request header `X-Cloud-Trace-Context` to HTTP requests. `middleware.XCloudTraceContext` provides an HTTP Middleware component that parses this header and make it available in the context.
+Cloud Run and GAE adds a request header `X-Cloud-Trace-Context` to HTTP requests. `middleware.XCloudTraceContext` provides an HTTP Middleware component that parses this header and make it available in the context.
 
 
 ``` go
