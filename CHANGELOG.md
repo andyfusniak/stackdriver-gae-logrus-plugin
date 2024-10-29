@@ -1,4 +1,7 @@
 # CHANGELOG
+## v0.2.0 (Tue October 29, 2024)
++ Support for v2 `X-Cloud-Trace-Context` header that uses 16-digit hex strings for its Span ID. See the README.md for more information.
+
 ## v0.1.3 (Tue June 25, 2019)
 + Fix off by one error when parsing `X-Cloud-Trace-Context`.
 
