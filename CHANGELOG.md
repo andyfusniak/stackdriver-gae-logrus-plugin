@@ -1,4 +1,11 @@
 # CHANGELOG
+
+## v0.2.1 (Tue October 29, 2024)
++ golang.org/x/sys/unix has Incorrect privilege reporting in syscall
+  + Go before 1.17.10 and 1.18.x before 1.18.2 has Incorrect Privilege Reporting in syscall. When called with a non-zero flags parameter, the Faccessat function could incorrectly report that a file is accessible.
+  + Specific Go Packages Affected
+golang.org/x/sys/unix
+
 ## v0.2.0 (Tue October 29, 2024)
 + Support for v2 `X-Cloud-Trace-Context` header that uses 16-digit hex strings for its Span ID. See the README.md for more information.
 
