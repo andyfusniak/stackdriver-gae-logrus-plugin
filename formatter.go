@@ -77,33 +77,19 @@ func GAEStandardFormatter(options ...Option) *Formatter {
 //    https://cloud.google.com/python/docs/reference/cloudtrace/1.2.0/google.cloud.trace_v2.types.Span
 // Stackdriver uses only v2 these days:
 //    https://issuetracker.google.com/issues/338634230?pli=1
-// Unfortunately, the X-Cloud-Trace-Context may still be using the
-// v1 API.  We try to detect that situation and convert it to a v2
-// compatible trace-id by formatting the number in hex.
-//
-// We cannot perfectly detect whether we're v1 or v2, because
-// there are some decimal numbers that look like 16-digit hex
-// numbers.  But not very many; we'd expect the logic below to
-// make a mistake about 1 in every 2,000 log entries.  In such
-// cases, we will use the wrong span-id, making it harder to
-// associate log-messages with the requestlog that spawned it.
-func maybeFixSpanID(s string) string {
-	// We say it's a v2 span-id if it's the right length and is
-	// obviously a hex value.  Otherwise we assume it's a v1 span id.
-	// About 0.0005 of v2 span-ids will fail this check (because the
-	// only have digits 0-9 in them) and seem like v1, and thus be
-	// wrongly converted.
-	if len(s) == 16 && strings.IndexAny(s, "abcdefABCDEF") != -1 {
-		return s
-	}
-
-	sAsInt, err := strconv.ParseInt(s, 10, 64)
+// Unfortunately, the X-Cloud-Trace-Context uses the v1 API.  We need
+// to convert it to v2 so we can match what stackdriver is doing.  A
+// better solution would be to migrate to `Traceparent` in preference
+// to `X-Cloud-Trace-Context`.  Some example code for this is at
+// https://github.com/googleapis/google-cloud-go/blob/f072178f6fd90537a5782395f4229e4c8b30af7e/logging/logging.go#L834-855
+func fixSpanID(s string) string {
+	sAsInt, err := strconv.ParseUint(s, 10, 64)
 	if err != nil {
 		return s
 	}
 	// While the docs don't say it, in practice the hex numbers
 	// have lowercase a-f, so that's what we do.
-	return strconv.FormatInt(sAsInt, 16)
+	return strconv.FormatUint(sAsInt, 16)
 }
 
 // "X-Cloud-Trace-Context: TRACE_ID/SPAN_ID;o=TRACE_TRUE"
@@ -138,9 +124,9 @@ func parseXCloudTraceContext(t string) (traceID, spanID string) {
 	// handle "TRACE_ID/SPAN_ID" missing the ";o=1" part.
 	last := strings.LastIndex(t, ";")
 	if last == -1 {
-		return t[0:32], maybeFixSpanID(t[33:])
+		return t[0:32], fixSpanID(t[33:])
 	}
-	return t[0:32], maybeFixSpanID(t[33:last])
+	return t[0:32], fixSpanID(t[33:last])
 }
 
 // Option lets you configure the Formatter.
