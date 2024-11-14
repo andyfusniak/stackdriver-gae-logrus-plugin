@@ -72,10 +72,12 @@ go run ./examples/http-service/main.go
 
 ## Limitations
 
-The Trace ID and Span ID can be attained using either the `Traceparent` header (v2), or the `X-Cloud-Trace-Context` header (v1). Google App Engine and Google Cloud Run use hexadecimal trace and span IDs and my understanding is that they intend to do so in the future. As of v0.3.0 the formatter will assume that the trace and span IDs are hexadecimal in the request headers sent by Google App Engine and Google Cloud Run and will format them as such.
+The Trace ID and Span ID can be attained using either the `Traceparent` header (v2), or the `X-Cloud-Trace-Context` header (v1). Google App Engine and Google Cloud Run use hexadecimal trace and span IDs and my understanding is that they intend to do so in the future. As of `v0.3.1` the formatter will assume that the trace and span IDs are hexadecimal in the request headers sent by Google App Engine and Google Cloud Run and will format them as such.
+
+**v0.3.1 only supports the v1 API.**
 
 
-## Awcknowledgements
+## Acknowledgements
 
 Thanks to [csilvers](https://github.com/csilvers) for his contributions that proces the Span ID, as well as his help with understanding how logging works in Google App Engine.
 
