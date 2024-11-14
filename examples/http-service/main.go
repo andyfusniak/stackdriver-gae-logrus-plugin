@@ -13,8 +13,6 @@ import (
 
 var version string
 
-var projectID = "glowing-market-234808"
-
 func sayHello(w http.ResponseWriter, r *http.Request) {
 	contextLogger := log.WithContext(r.Context())
 
@@ -34,10 +32,24 @@ func sayHello(w http.ResponseWriter, r *http.Request) {
 		"status": "busted",
 	}).Error("These are not the drones you are looking for")
 
-	w.Write([]byte("hello"))
+	// echo back out the request headers to the client
+	w.Header().Set("Content-Type", "text/plain")
+	fmt.Fprintf(w, "Hello, World!\n\n")
+	fmt.Fprintf(w, "Request Headers:\n")
+	for name, values := range r.Header {
+		for _, value := range values {
+			fmt.Fprintf(w, "%s: %s\n", name, value)
+		}
+	}
 }
 
 func main() {
+	var projectID = os.Getenv("GOOGLE_CLOUD_PROJECT")
+	if projectID == "" {
+		fmt.Fprintf(os.Stderr, "GOOGLE_CLOUD_PROJECT environment variable not set\n")
+		os.Exit(1)
+	}
+
 	// Log as JSON Stackdriver with entry threading
 	// instead of the default ASCII formatter.
 	formatter := stackdriver.GAEStandardFormatter(
